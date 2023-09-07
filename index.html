@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>acerola's epic color palettes</title>
+</head>
+
+<style>
+    body {
+        background-color: #332F35;
+        color: white;
+    }
+
+    #color-form {
+        margin-bottom: 1em;
+    }
+
+    #click-instructions {
+        display: none;
+    }
+
+    #result {
+        display: flex;
+    }
+
+    #palettes {
+        width: calc(75% - 1em);
+        margin-right: 1em;
+    }
+
+    #details {
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #details-color {
+        width: 4em;
+        height: 4em;
+        margin-bottom: .5em;
+    }
+</style>
+
+<body>
+    <h1>acerola's epic color palkettes</h1>
+    <form id="color-form">
+        <label for="color-mode">Hue mode:</label>
+        <select id="color-mode" name="color-mode">
+            <option value="1">Monochromatic</option>
+        </select>
+        <label for="value-mode">Harmonics mode:</label>
+        <select id="value-mode" name="value-mode">
+            <option value="1">Mode 1</option>
+        </select>
+        <label for="color-count">Color count</label>
+        <input id="color-count" name="color-count" type="number" min="2" max="16" value="8" />
+        <input type="submit" value="Generate" />
+    </form>
+    <p id="click-instructions">click a color to see hex + rgb</p>
+    <div id="result">
+        <div id="palettes"></div>
+        <div id="details">
+            <div id="details-color"></div>
+            <span id="details-hex"></span>
+            <span id="details-rgb"></span>
+        </div>
+    </div>
+    <script>
+        const getHexFromRGB = (rgb) => `#${Number(rgb[0]).toString(16).padStart(2, "0")}${Number(rgb[1]).toString(16).padStart(2, "0")}${Number(rgb[2]).toString(16).padStart(2, "0")}`;
+
+        const getFakeResult = () => {
+            const palettesCount = 4;
+            const colorsCounts = 16;
+            const palettes = [];
+            for (let i = 0; i < palettesCount; i++) {
+                const colors = [];
+                for (let j = 0; j < colorsCounts; j++) {
+                    colors.push({
+                        rgb: [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]
+                    });
+                }
+                palettes.push({
+                    colors
+                });
+            }
+            return palettes;
+        }
+
+        const getResult = (colorMode, valueMode, colorCount) => {
+            // Acerola writes this =3
+            console.log("Getting result...");
+            console.log("Color mode: " + colorMode);
+            console.log("Value mode: " + valueMode);
+            console.log("Color count: " + colorCount);
+            return getFakeResult();
+        }
+
+        const handleResult = (palettes) => {
+            const palettesElement = document.getElementById("palettes");
+            palettesElement.innerHTML = "";
+            palettes.forEach((palette, paletteIndex) => {
+                const paletteElement = document.createElement("div");
+                palettesElement.appendChild(paletteElement);
+                const paletteLabelElement = document.createElement("span");
+                paletteLabelElement.innerText = `Palette ${paletteIndex + 1}:`
+                paletteElement.appendChild(paletteLabelElement);
+                const paletteColorsElement = document.createElement("div");
+                paletteColorsElement.style.display = "flex";
+                paletteColorsElement.style.flexWrap = "wrap";
+                paletteElement.appendChild(paletteColorsElement);
+                for (const color of palette.colors) {
+                    const hex = getHexFromRGB(color.rgb);
+                    const paletteColorElement = document.createElement("div");
+                    paletteColorElement.addEventListener("click", () => {
+                        const detailsColor = document.getElementById("details-color");
+                        const detailsHex = document.getElementById("details-hex");
+                        const detailsRGB = document.getElementById("details-rgb");
+                        detailsColor.style.backgroundColor = hex;
+                        detailsHex.innerText = `Hex: ${hex}`;
+                        detailsRGB.innerText = `RGB: (${color.rgb[0]}, ${color.rgb[1]}, ${color.rgb[2]})`;
+                    });
+                    paletteColorElement.style.backgroundColor = hex;
+                    paletteColorElement.style.width = "2em";
+                    paletteColorElement.style.height = "2em";
+                    paletteColorsElement.appendChild(paletteColorElement);
+                }
+            });
+        }
+
+        document.getElementById("color-form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const colorMode = document.getElementById("color-mode");
+            const valueMode = document.getElementById("value-mode");
+            const colorCount = document.getElementById("color-count");
+            const detailsColor = document.getElementById("details-color");
+            const detailsHex = document.getElementById("details-hex");
+            const detailsRGB = document.getElementById("details-rgb");
+            detailsColor.style.backgroundColor = "";
+            detailsHex.innerText = "";
+            detailsRGB.innerText = "";
+            const result = getResult(colorMode.value, valueMode.value, colorCount.value);
+            handleResult(result);
+            document.getElementById("click-instructions").style.display = "block";
+        });
+    </script>
+</body>
+
+</html>
