@@ -111,6 +111,7 @@
                 const paletteColorsElement = document.createElement("div");
                 paletteColorsElement.style.display = "flex";
                 paletteColorsElement.style.flexWrap = "wrap";
+                paletteColorsElement.style.marginBottom = ".25em";
                 paletteElement.appendChild(paletteColorsElement);
                 for (const color of palette.colors) {
                     const hex = getHexFromRGB(color.rgb);
