@@ -104,6 +104,9 @@
                 palettesElement.appendChild(paletteElement);
                 const paletteLabelElement = document.createElement("span");
                 paletteLabelElement.innerText = `Palette ${paletteIndex + 1}:`
+                paletteLabelElement.style.lineHeight = "1";
+                paletteLabelElement.style.display = "block";
+                paletteLabelElement.style.marginBottom = "1.125em";
                 paletteElement.appendChild(paletteLabelElement);
                 const paletteColorsElement = document.createElement("div");
                 paletteColorsElement.style.display = "flex";
