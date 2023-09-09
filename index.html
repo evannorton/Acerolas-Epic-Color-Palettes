@@ -89,14 +89,6 @@
             return palettes;
         }
 
-        const getResult = (colorMode, colorCount) => {
-            // Acerola writes this =3
-            console.log("Getting result...");
-            console.log("Color mode: " + colorMode);
-            console.log("Color count: " + colorCount);
-            return generatePalettes(colorMode, colorCount);
-        }
-
         const handleResult = (palettes) => {
             const palettesElement = document.getElementById("palettes");
             palettesElement.innerHTML = "";
@@ -143,7 +135,7 @@
             detailsColor.style.backgroundColor = "";
             detailsHex.innerText = "";
             detailsRGB.innerText = "";
-            const result = getResult(colorMode.value, colorCount.value);
+            const result = generatePalettes(colorMode.value, colorCount.value);
             handleResult(result);
             document.getElementById("click-instructions").style.display = "block";
         });

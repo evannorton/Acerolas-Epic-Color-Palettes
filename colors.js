@@ -1,3 +1,4 @@
+// Acerola's code
 function hslToRgb(h, s, l) {
   h = h % 1;
   var r, g, b;
