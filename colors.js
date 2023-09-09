@@ -114,7 +114,8 @@ function generateHSL(HUE_MODE, settings) {
     if (HUE_MODE == "triadic complementary") hueOffset *= 0.66;
     if (HUE_MODE == "tetradic complementary") hueOffset *= 0.75;
 
-    hueOffset += (Math.random() * 2 - 1) * 0.01;
+    if (HUE_MODE != "monochromatic")
+      hueOffset += (Math.random() * 2 - 1) * 0.01;
 
     let saturation = saturationBase + linearIterator * saturationContrast;
     let lightness = lightnessBase + linearIterator * lightnessContrast;
@@ -161,7 +162,8 @@ function generateHSV(HUE_MODE, settings) {
     if (HUE_MODE == "triadic complementary") hueOffset *= 0.66;
     if (HUE_MODE == "tetradic complementary") hueOffset *= 0.75;
 
-    hueOffset += (Math.random() * 2 - 1) * 0.01;
+    if (HUE_MODE != "monochromatic")
+      hueOffset += (Math.random() * 2 - 1) * 0.01;
 
     let saturation = saturationBase + linearIterator * saturationContrast;
     let value = valueBase + linearIterator * valueContrast;
@@ -208,7 +210,8 @@ function generateOKLCH(HUE_MODE, settings) {
     if (HUE_MODE == "triadic complementary") hueOffset *= 0.66;
     if (HUE_MODE == "tetradic complementary") hueOffset *= 0.75;
 
-    hueOffset += (Math.random() * 2 - 1) * 0.01;
+    if (HUE_MODE != "monochromatic")
+      hueOffset += (Math.random() * 2 - 1) * 0.01;
 
     let chroma = chromaBase + linearIterator * chromaContrast;
     let lightness = lightnessBase + linearIterator * lightnessContrast;
